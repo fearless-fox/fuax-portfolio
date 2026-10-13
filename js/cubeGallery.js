@@ -5,14 +5,14 @@ const IMG_BASE = 'assets/images/';
 // One cube per discipline. Add image filenames here as new work lands
 // (e.g. from the Drive portfolio folder) — faces and galleries update automatically.
 const CATEGORIES = [
-  { id: 'mixed-media', label: 'MIXED MEDIA', images: ['mixed-media-01.jpg', 'mixed-media-02.jpg', 'mixed-media-03.jpg'] },
-  { id: 'digital',     label: 'DIGITAL',     images: [] },
+  { id: 'mixed-media', label: 'MIXED MEDIA', images: ['mixed-media-pick1.jpg', 'mixed-media-pick2.jpg', 'mixed-media-pick3.jpg', 'mixed-media-01.jpg', 'mixed-media-02.jpg', 'mixed-media-03.jpg', 'mixed-media-04.jpg', 'mixed-media-05.jpg', 'mixed-media-06.jpg', 'mixed-media-07.jpg', 'mixed-media-08.jpg', 'mixed-media-09.jpg', 'mixed-media-10.jpg', 'mixed-media-11.jpg'] },
+  { id: 'digital',     label: 'DIGITAL',     images: ['digital-01.jpg', 'digital-02.jpg', 'digital-03.jpg', 'digital-04.jpg', 'digital-05.jpg', 'digital-06.jpg', 'digital-07.jpg', 'digital-08.jpg', 'digital-09.png', 'digital-10.jpg'] },
   { id: 'photography', label: 'PHOTOGRAPHY', images: ['photography-01.jpg', 'photography-02.jpg'] },
   { id: 'dev',         label: 'DEV WORK',    images: [] },
   { id: 'music',       label: 'MUSIC',       images: [] },
-  { id: 'typography',  label: 'TYPOGRAPHY',  images: ['typography-01.jpg'] },
-  { id: 'street',      label: 'STREET',      images: ['street-01.jpg', 'street-02.jpg'] },
-  { id: 'sketchbook',  label: 'SKETCHBOOK',  images: [] },
+  { id: 'typography',  label: 'TYPOGRAPHY',  images: ['typography-pick1.jpg', 'typography-01.jpg', 'typography-02.jpg'] },
+  { id: 'street',      label: 'STREET',      images: ['street-pick1.jpg', 'street-pick2.jpg', 'street-01.jpg', 'street-02.jpg'] },
+  { id: 'sketchbook',  label: 'SKETCHBOOK',  images: ['sketchbook-01.jpg', 'sketchbook-02.jpg', 'sketchbook-03.jpg', 'sketchbook-04.jpg', 'sketchbook-05.jpg', 'sketchbook-06.jpg'] },
 ];
 
 const FOX_RED = 0xC13E1B;
