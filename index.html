@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>FUAX // Art & Code — The Fearless Fox</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarpanch:wght@400;500;600;700;800;900&family=Rubik+Distressed&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.module.js"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <canvas id="ff-three-canvas"></canvas>
+
+  <div class="ff-container">
+    <div class="ff-grid">
+      <header class="ff-cell ff-nav">
+        <a href="#" class="ff-brand-tag">FUAX<span>_</span></a>
+        <nav>
+          <ul class="ff-nav-links">
+            <li><a href="#work">Work</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <main class="ff-cell ff-hero-main">
+        <p class="ff-mono-meta">30 YEARS DRAWING // STREET LINEAGE // SHIPPED CODE</p>
+        <h1 class="ff-title-xl">ART THAT<br>DOESN'T ASK<br>PERMISSION</h1>
+        <p class="ff-subtitle">
+          Thirty years with a pen. Ten in the streets. Now the same hand works canvas, code, and concrete. No middlemen. No safe choices. Just the work.
+        </p>
+        <div class="ff-button-group">
+          <a href="#work" class="ff-button">SEE THE WORK</a>
+          <a href="#contact" class="ff-button ff-button-secondary">HIT ME UP</a>
+        </div>
+      </main>
+
+      <aside class="ff-cell ff-hero-sidebar">
+        <div>
+          <p class="ff-mono-meta">THE_HAND</p>
+          <div class="ff-stat-box">
+            <div class="ff-stat-value">01 // STREET</div>
+            <p style="font-size: 0.875rem; color: var(--text-muted); margin-top: 4px;">Graffiti lineage. Tags, walls, canvas. NINE. PRIMO. F0X0.</p>
+          </div>
+          <div class="ff-stat-box">
+            <div class="ff-stat-value">02 // CANVAS</div>
+            <p style="font-size: 0.875rem; color: var(--text-muted); margin-top: 4px;">Mixed media and ink. Mouths, teeth, monsters. Lettering as image.</p>
+          </div>
+          <div class="ff-stat-box">
+            <div class="ff-stat-value">03 // CODE</div>
+            <p style="font-size: 0.875rem; color: var(--text-muted); margin-top: 4px;">Full-stack builds, WebGL, shipped products. Same hand, different weapon.</p>
+          </div>
+        </div>
+        <div style="margin-top: 32px; border-top: 1px solid var(--border-raw); padding-top: 16px;">
+          <p class="ff-mono-meta">EXECUTION_MODEL</p>
+          <p style="font-size: 0.85rem; color: var(--text-concrete); margin-top: 8px; font-family: var(--font-tech-mono);">[ ONE MAN • EVERY LAYER • NO MIDDLEMEN ]</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <section id="work" class="ff-section">
+    <div class="ff-section-header">
+      <p class="ff-mono-meta">SELECTED_WORK // 2022—2026</p>
+      <h2 class="ff-title-section">Eight disciplines.<br>One hand.</h2>
+      <p class="ff-section-desc">Each cube is a discipline. Drag to spin. Click a cube to open its gallery.</p>
+    </div>
+    <div class="cube-gallery">
+      <canvas id="cube-canvas"></canvas>
+      <div class="cube-loading" id="cube-loading">LOADING ASSETS...</div>
+      <div class="cube-hint"><span class="ff-mono-meta">DRAG TO ROTATE // TOUCH & SWIPE ON MOBILE</span></div>
+    </div>
+  </section>
+
+  <footer id="contact" class="ff-footer">
+    <p>© 2026 FUAX // FOREVER UNFINISHED</p>
+    <p style="margin-top: 8px; color: var(--border-concrete);">Direct: fuax.machine@gmail.com</p>
+  </footer>
+
+  <div class="gallery-overlay" id="gallery-overlay" hidden>
+    <div class="gallery-frame">
+      <button class="gallery-close" id="gallery-close" aria-label="Close gallery">&times;</button>
+      <p class="ff-mono-meta" id="gallery-kicker">GALLERY</p>
+      <h3 id="gallery-title">Title</h3>
+      <div class="gallery-images" id="gallery-images"></div>
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
