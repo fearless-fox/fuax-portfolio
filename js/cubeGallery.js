@@ -12,7 +12,7 @@ const CATEGORIES = [
   { id: 'music',       label: 'MUSIC',       images: [] },
   { id: 'typography',  label: 'TYPOGRAPHY',  images: ['typography-pick1.jpg', 'typography-01.jpg', 'typography-02.jpg', 'typography-03.jpg', 'typography-04.jpg', 'typography-05.jpg', 'typography-06.jpg', 'typography-07.jpg'] },
   { id: 'street',      label: 'STREET',      images: ['street-pick1.jpg', 'street-pick2.jpg', 'street-01.jpg', 'street-02.jpg', 'street-03.jpg', 'street-04.jpg', 'street-05.jpg', 'street-06.jpg', 'street-07.jpg', 'street-08.jpg'] },
-  { id: 'sketchbook',  label: 'SKETCHBOOK',  images: ['sketchbook-01.jpg', 'sketchbook-02.jpg', 'sketchbook-03.jpg', 'sketchbook-04.jpg', 'sketchbook-05.jpg', 'sketchbook-06.jpg', 'sketchbook-07.jpg', 'sketchbook-08.jpg', 'sketchbook-09.jpg', 'sketchbook-10.jpg', 'sketchbook-11.jpg', 'sketchbook-12.jpg', 'sketchbook-13.jpg', 'sketchbook-14.jpg', 'sketchbook-15.jpg', 'sketchbook-16.jpg'] },
+  { id: 'sketchbook',  label: 'SKETCHBOOK',  images: ['sketchbook-01.jpg', 'sketchbook-02.jpg', 'sketchbook-03.jpg', 'sketchbook-04.jpg', 'sketchbook-05.jpg', 'sketchbook-06.jpg', 'sketchbook-07.jpg', 'sketchbook-08.jpg', 'sketchbook-09.jpg', 'sketchbook-10.jpg', 'sketchbook-11.jpg', 'sketchbook-12.jpg', 'sketchbook-13.jpg', 'sketchbook-14.jpg', 'sketchbook-15.jpg', 'sketchbook-16.jpg', 'sketchbook-17.jpg', 'sketchbook-18.jpg', 'sketchbook-19.jpg', 'sketchbook-20.jpg', 'sketchbook-21.jpg', 'sketchbook-22.jpg', 'sketchbook-23.jpg', 'sketchbook-24.jpg', 'sketchbook-25.jpg', 'sketchbook-26.jpg'] },
 ];
 
 const FOX_RED = 0xC13E1B;
