@@ -1,6 +1,12 @@
 import * as THREE from 'three';
+import { openArtCard } from './artCard.js';
 
 const IMG_BASE = 'assets/images/';
+
+// "sketchbook-17.jpg" -> "SKETCHBOOK 17"
+function prettyTitle(src) {
+  return src.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ').toUpperCase();
+}
 
 // One cube per discipline. Add image filenames here as new work lands
 // (e.g. from the Drive portfolio folder) — faces and galleries update automatically.
@@ -268,11 +274,21 @@ export function initCubeGallery(canvasId = 'cube-canvas') {
       gImages.appendChild(p);
     } else {
       cat.images.forEach((src) => {
+        const item = document.createElement('div');
+        item.className = 'gallery-item';
         const img = document.createElement('img');
         img.src = IMG_BASE + src;
         img.alt = `${cat.label} — ${src}`;
         img.loading = 'lazy';
-        gImages.appendChild(img);
+        const badge = document.createElement('span');
+        badge.className = 'gallery-3d-badge';
+        badge.textContent = '3D';
+        item.appendChild(img);
+        item.appendChild(badge);
+        item.addEventListener('click', () => {
+          openArtCard({ src: IMG_BASE + src, title: prettyTitle(src), category: cat.label });
+        });
+        gImages.appendChild(item);
       });
     }
     overlay.hidden = false;

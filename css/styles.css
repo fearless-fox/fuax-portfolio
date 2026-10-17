@@ -325,3 +325,119 @@ body {
   .ff-section { padding: calc(var(--grid-unit) * 6) 0; }
   .cube-gallery { height: 350px; }
 }
+
+/* ---- 3D collectible art card (ported from Atom-I Founder Pass mechanics) ---- */
+.artcard-overlay {
+  position: fixed; inset: 0; z-index: 60;
+  background: rgba(5, 5, 5, 0.92);
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px; backdrop-filter: blur(6px);
+}
+.artcard-overlay[hidden] { display: none; }
+.artcard-modal {
+  position: relative; display: flex; flex-direction: column; align-items: center;
+  gap: 14px; max-width: 480px; width: 100%;
+}
+.artcard-close {
+  position: absolute; top: -8px; right: 0; z-index: 2;
+  background: none; border: none; color: var(--text-muted);
+  font-size: 2rem; line-height: 1; cursor: pointer; padding: 4px 8px;
+}
+.artcard-close:hover { color: var(--accent-fox); }
+.artcard-stage {
+  width: min(88vw, 380px); aspect-ratio: 4 / 5;
+  perspective: 1200px; cursor: grab; touch-action: none; user-select: none;
+}
+.artcard-stage:active { cursor: grabbing; }
+.artcard-inner {
+  width: 100%; height: 100%; position: relative;
+  transform-style: preserve-3d;
+}
+.artcard-face {
+  position: absolute; inset: 0; border-radius: 14px; overflow: hidden;
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  background: #000; border: 1px solid rgba(193, 62, 27, 0.45);
+  box-shadow: 0 0 32px rgba(193, 62, 27, 0.16), 0 25px 50px -12px rgba(0,0,0,0.85);
+  transition: opacity 0.15s ease;
+}
+.artcard-front { transform: rotateY(0deg) translateZ(5px); }
+.artcard-back { transform: rotateY(180deg) translateZ(5px); background: #0C0C0E; }
+.artcard-art { width: 100%; height: 100%; object-fit: cover; display: block; animation: artcard-drift 14s ease-in-out infinite alternate; }
+.artcard-back-inner {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  padding: 32px 28px; gap: 6px;
+}
+.artcard-brand {
+  font-family: var(--font-display); font-size: 3rem; letter-spacing: 0.12em;
+  color: var(--accent-fox); text-shadow: 0 0 22px rgba(193,62,27,0.55);
+}
+.artcard-piece-title {
+  font-family: var(--font-architectural); font-weight: 700; font-size: 1.15rem;
+  letter-spacing: 0.18em; color: #EDEDE6; margin-top: 10px;
+}
+.artcard-piece-cat {
+  font-family: var(--font-tech-mono); font-size: 0.7rem; letter-spacing: 0.3em;
+  color: var(--text-muted); text-transform: uppercase;
+}
+.artcard-rule { width: 56px; height: 1px; background: var(--accent-fox); margin: 12px 0; opacity: 0.7; }
+.artcard-meta { font-family: var(--font-tech-mono); font-size: 0.72rem; letter-spacing: 0.22em; color: var(--text-concrete); }
+.artcard-meta.dim { color: var(--text-muted); }
+.artcard-mail { font-family: var(--font-tech-mono); font-size: 0.72rem; letter-spacing: 0.08em; color: var(--accent-fox); margin-top: 14px; }
+/* card thickness: metallic edge strips so the spin never shows hollow */
+.artcard-edge { position: absolute; pointer-events: none; }
+.edge-h {
+  left: 0; width: 100%; height: 10px;
+  background: linear-gradient(90deg, #5c1f0e, #C13E1B 30%, #f0a080 50%, #C13E1B 70%, #5c1f0e);
+}
+.edge-v {
+  top: 0; height: 100%; width: 10px;
+  background: linear-gradient(180deg, #5c1f0e, #C13E1B 30%, #f0a080 50%, #C13E1B 70%, #5c1f0e);
+}
+.edge-top { top: -5px; transform: rotateX(-90deg); }
+.edge-bottom { bottom: -5px; transform: rotateX(90deg); }
+.edge-left { left: -5px; transform: rotateY(-90deg); }
+.edge-right { right: -5px; transform: rotateY(90deg); }
+/* holographic HUD fx */
+.artcard-scan {
+  position: absolute; left: 0; right: 0; height: 96px; pointer-events: none;
+  background: linear-gradient(to bottom, transparent, rgba(193,62,27,0.14), transparent);
+  animation: artcard-scan 5s linear infinite;
+}
+.artcard-sheen {
+  position: absolute; top: -10%; bottom: -10%; width: 25%; pointer-events: none;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.09), transparent);
+  animation: artcard-sheen 7s ease-in-out infinite;
+}
+.artcard-dot { position: absolute; width: 8px; height: 8px; border-radius: 50%; }
+.artcard-dot.dot-a { top: 3.5%; left: 4.5%; background: #C13E1B; box-shadow: 0 0 10px rgba(193,62,27,0.9); animation: artcard-blink 1.6s steps(2) infinite; }
+.artcard-dot.dot-b { top: 3.5%; right: 5%; background: #EDEDE6; box-shadow: 0 0 10px rgba(237,237,230,0.7); animation: artcard-blink 2.6s steps(2) infinite; }
+.artcard-vignette { position: absolute; inset: 0; border-radius: 14px; pointer-events: none; box-shadow: inset 0 0 70px rgba(0,0,0,0.62); }
+.artcard-glow { position: absolute; inset: 0; border-radius: 14px; pointer-events: none; box-shadow: inset 0 0 24px rgba(193,62,27,0.20); animation: artcard-glow 3.2s ease-in-out infinite; }
+@keyframes artcard-scan { 0% { top: -96px; } 100% { top: 100%; } }
+@keyframes artcard-sheen { 0%, 100% { left: -30%; } 50% { left: 110%; } }
+@keyframes artcard-blink { 50% { opacity: 0.25; } }
+@keyframes artcard-drift { from { transform: scale(1); } to { transform: scale(1.06); } }
+@keyframes artcard-glow { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+/* controls */
+.artcard-controls { display: flex; gap: 10px; }
+.artcard-controls button {
+  font-family: var(--font-tech-mono); font-size: 0.7rem; letter-spacing: 0.18em;
+  background: transparent; color: var(--text-concrete);
+  border: 1px solid var(--border-concrete); padding: 8px 14px; cursor: pointer;
+  border-radius: 4px; transition: all 0.15s ease;
+}
+.artcard-controls button:hover { border-color: var(--accent-fox); color: #EDEDE6; }
+.artcard-controls button.active { background: var(--accent-fox); border-color: var(--accent-fox); color: #0C0C0E; font-weight: 700; }
+.artcard-hint { font-family: var(--font-tech-mono); font-size: 0.68rem; letter-spacing: 0.25em; color: var(--text-muted); text-transform: uppercase; }
+/* gallery thumbnails: clickable + 3D badge */
+.gallery-item { position: relative; cursor: pointer; }
+.gallery-item img { transition: transform 0.2s ease, border-color 0.2s ease; }
+.gallery-item:hover img { transform: scale(1.015); border-color: var(--accent-fox); }
+.gallery-3d-badge {
+  position: absolute; bottom: 8px; right: 8px;
+  font-family: var(--font-tech-mono); font-size: 0.62rem; letter-spacing: 0.2em;
+  background: rgba(12,12,14,0.85); color: var(--accent-fox);
+  border: 1px solid var(--accent-fox); padding: 3px 8px; border-radius: 3px;
+  pointer-events: none;
+}
