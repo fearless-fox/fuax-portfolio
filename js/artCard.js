@@ -1,13 +1,16 @@
 // 3D collectible art card — ported from the Atom-I Founder Pass card mechanics
 // (CSS preserve-3d drag-to-spin, backface culling fix, holographic HUD fx).
 // Vanilla JS: openArtCard({ src, title, category }) shows any piece as a
-// spinnable card. Front = the artwork, back = the story/specs.
+// spinnable card. Front = the artwork, back = the story/specs (per-piece
+// metadata from artMeta.js, graceful fallback when absent).
+
+import { ART_META } from './artMeta.js';
 
 const CARD_T = 10; // card thickness px
 const CARD_HALF = CARD_T / 2;
 
 let overlay, stage, inner, frontFace, backFace, frontImg;
-let backTitle, backCategory;
+let backTitle, backCategory, backMedium, backStory, backStatus;
 let rotationY = 0, tiltX = 0;
 let isDragging = false, dragStartX = 0, startRotY = 0;
 let autoRotate = false, spinning = false, rafId = null;
@@ -41,6 +44,9 @@ function build() {
               <div class="artcard-piece-title"></div>
               <div class="artcard-piece-cat"></div>
               <div class="artcard-rule"></div>
+              <div class="artcard-medium"></div>
+              <div class="artcard-story"></div>
+              <div class="artcard-status"></div>
               <div class="artcard-meta">ORIGINAL ART — 1 OF 1</div>
               <div class="artcard-meta dim">FOREVER UNFINISHED ARTWORX</div>
               <div class="artcard-mail">fuax.machine@gmail.com</div>
@@ -72,6 +78,9 @@ function build() {
   frontImg = overlay.querySelector('.artcard-art');
   backTitle = overlay.querySelector('.artcard-piece-title');
   backCategory = overlay.querySelector('.artcard-piece-cat');
+  backMedium = overlay.querySelector('.artcard-medium');
+  backStory = overlay.querySelector('.artcard-story');
+  backStatus = overlay.querySelector('.artcard-status');
 
   overlay.querySelector('.artcard-close').addEventListener('click', closeArtCard);
   overlay.addEventListener('click', (e) => { if (e.target === overlay) closeArtCard(); });
@@ -163,12 +172,22 @@ function trigger360Spin() {
   requestAnimationFrame(step);
 }
 
+function setField(el, text) {
+  el.textContent = text || '';
+  el.style.display = text ? '' : 'none';
+}
+
 export function openArtCard({ src, title, category }) {
   build();
+  const meta = ART_META[src.split('/').pop()] || {};
+  const showTitle = meta.title || title;
   frontImg.src = src;
-  frontImg.alt = title;
-  backTitle.textContent = title;
+  frontImg.alt = showTitle;
+  backTitle.textContent = showTitle;
   backCategory.textContent = category;
+  setField(backMedium, [meta.medium, meta.year].filter(Boolean).join(' · '));
+  setField(backStory, meta.story);
+  setField(backStatus, meta.status);
   rotationY = 0; tiltX = 0;
   applyTransform();
   overlay.hidden = false;
