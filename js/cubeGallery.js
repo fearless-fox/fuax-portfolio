@@ -3,6 +3,12 @@ import { openArtCard } from './artCard.js';
 
 const IMG_BASE = 'assets/images/';
 
+// thumbnails live next to the full file: 'sketchbook-17.jpg' -> 'sketchbook-17-thumb.jpg'
+// grid + cube faces use thumbs; the 3D card always uses the full file.
+function thumbSrc(src) {
+  return src.replace(/(\.[^.]+)$/, '-thumb$1');
+}
+
 // "sketchbook-17.jpg" -> "SKETCHBOOK 17"
 function prettyTitle(src) {
   return src.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ').toUpperCase();
@@ -104,7 +110,7 @@ export function initCubeGallery(canvasId = 'cube-canvas') {
   // faces: artwork first, then the name plate, then brand solids to fill
   function buildMaterials(cat) {
     const mats = cat.images.map(
-      (src) => new THREE.MeshBasicMaterial({ map: loadTexture(IMG_BASE + src), transparent: true })
+      (src) => new THREE.MeshBasicMaterial({ map: loadTexture(IMG_BASE + thumbSrc(src)), transparent: true })
     );
     mats.push(new THREE.MeshBasicMaterial({ map: makeLabelTexture(cat.label), transparent: true }));
     const solids = [FOX_RED, CARBON];
@@ -277,7 +283,7 @@ export function initCubeGallery(canvasId = 'cube-canvas') {
         const item = document.createElement('div');
         item.className = 'gallery-item';
         const img = document.createElement('img');
-        img.src = IMG_BASE + src;
+        img.src = IMG_BASE + thumbSrc(src);
         img.alt = `${cat.label} — ${src}`;
         img.loading = 'lazy';
         const badge = document.createElement('span');
