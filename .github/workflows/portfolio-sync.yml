@@ -1,0 +1,45 @@
+name: Portfolio sync
+
+# When new photos land in assets/incoming/<category>/, optimize them,
+# generate thumbnails, harvest metadata for the 3D card backs, wire the
+# gallery, and commit everything back. The site deploys from main via Netlify.
+on:
+  push:
+    branches: [main]
+    paths: ['assets/incoming/**']
+
+# Serialize runs so two quick pushes can't claim the same file number.
+concurrency:
+  group: portfolio-sync
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Pillow
+        run: pip install Pillow
+
+      - name: Process incoming images
+        run: python .github/workflows/process_incoming.py
+
+      - name: Commit results
+        run: |
+          git config user.name "f0x0-bot"
+          git config user.email "fuax.machine@gmail.com"
+          git add assets/images/ js/cubeGallery.js js/artMeta.auto.js
+          git add -u assets/incoming/
+          if git diff --cached --quiet; then
+            echo "Nothing to commit."
+          else
+            git commit -m "portfolio sync: process incoming images"
+            git push
+          fi
